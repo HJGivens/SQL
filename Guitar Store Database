@@ -1,0 +1,28 @@
+--Create a guitar store database
+
+CREATE TABLE store_inventory (id INTEGER PRIMARY KEY, brand TEXT, product TEXT, quantity INTEGER, price INTEGER, location TEXT);
+
+INSERT INTO store_inventory VALUES (1, "Fender", "American Telecaster", 5, 1900, "Floor"); 
+INSERT INTO store_inventory VALUES (2, "Fender", "American Stratocaster", 4, 1900, "Floor"); 
+INSERT INTO store_inventory VALUES (3, "Fender", "American Pro Telecaster", 2, 2200, "Floor"); 
+INSERT INTO store_inventory VALUES (4, "Fender", "American Pro Stratocaster", 1, 2250, "Main Warehouse"); 
+INSERT INTO store_inventory VALUES (5, "Fender", "Korean Telecaster", 3, 800, "Floor"); 
+INSERT INTO store_inventory VALUES (6, "Fender", "Korean Stratocaster", 1, 900, "Main Warehouse"); 
+INSERT INTO store_inventory VALUES (7, "Fender", "Korean Telecaster", 5, 950, "Floor"); 
+INSERT INTO store_inventory VALUES (8, "Gibson", "Les Paul Standard", 1, 2000, "Main Warehouse"); 
+INSERT INTO store_inventory VALUES (9, "Gibson", "Les Paul Custom", 1, 2500, "Floor");
+INSERT INTO store_inventory VALUES (10, "Gibson", "Les Paul Standard 60s", 2, 2200, "Floor");
+INSERT INTO store_inventory VALUES (11, "Gibson", "SG", 2, 1999, "Main Warehouse");
+INSERT INTO store_inventory VALUES (12, "Gibson", "Thunderbird", 4, 1700, "Floor");
+INSERT INTO store_inventory VALUES (13, "Gibson", "Hummingbird", 0, 3500, "Backordered");
+INSERT INTO store_inventory VALUES (14, "Gibson", "Elvis Dove", 1, 4500, "Floor");
+INSERT INTO store_inventory VALUES (15, "Gibson", "Dave Mustaine Flying V", 1, 2700, "Main Warehouse");
+
+--display the database ordered by price. 
+SELECT * FROM store_inventory
+ORDER BY price desc; 
+
+--display the database ordered by price where the item is on the sales floor
+SELECT * from store_inventory
+WHERE location = "Floor"
+ORDER BY price desc;
