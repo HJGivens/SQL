@@ -1,4 +1,9 @@
---Join databases
+--In this SQL Code, I'm querying a database that's holding Netflix data across two databases: 
+netflix_people and netflix_titles_info. 
+
+--Questions are specific goals/objectives to find in the data. 
+
+-- To join databases
 SELECT 
 people.show_id,
 titles.title,
@@ -23,4 +28,23 @@ FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
 SELECT titles.title
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
 ORDER BY titles.title;
+
+-- 4. To determine who the director for Bright Star is
+
+SELECT 
+titles.title,
+people.director
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+ON people.show_id = titles.show_id
+WHERE titles.title = 'Bright Star';
+
+--5. To determine the oldest movie in the database, and when it was made
+
+SELECT 
+titles.title, 
+titles.release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+ORDER BY release_year
+LIMIT 1;
 
