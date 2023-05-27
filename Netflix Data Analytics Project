@@ -27,7 +27,7 @@ FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
 
 SELECT titles.title
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
-ORDER BY titles.title;
+ORDER BY titles.title ASC;
 
 -- 4. To determine who the director for Bright Star is
 
@@ -43,8 +43,12 @@ WHERE titles.title = 'Bright Star';
 
 SELECT 
 titles.title, 
-titles.release_year
+titles.release_year,
+titles.type
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
-ORDER BY release_year
+WHERE type = 'Movie'
+ORDER BY release_year ASC
 LIMIT 1;
+
+
 
