@@ -1,0 +1,62 @@
+CREATE TABLE fellowship (id INTEGER PRIMARY KEY, 
+    first_name TEXT, 
+    last_name TEXT);
+    
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Frodo", "Baggins");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Samwise", "Gamgee");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Meriadoc", "Brandybuck");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Peregrin", "Took");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Gandalf", "The Grey");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Aragorn", "Son of Arathorn");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Boromir", "Son of Denethor");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Legolas", "Son of Thranduil");
+INSERT INTO fellowship (first_name, last_name)
+    VALUES ("Gimli", "Son of Gloin");
+
+CREATE TABLE appears_in (id INTEGER PRIMARY KEY, 
+    fellowship_id TEXT, 
+    book_title TEXT); 
+    
+CREATE TABLE species (id INTEGER PRIMARY KEY, 
+    fellowship_id INTEGER, 
+    name TEXT); 
+
+INSERT INTO species (fellowship_id, name) VALUES (1, "Hobbit");
+INSERT INTO species (fellowship_id, name) VALUES (2, "Hobbit");
+INSERT INTO species (fellowship_id, name) VALUES (3, "Hobbit");
+INSERT INTO species (fellowship_id, name) VALUES (4, "Hobbit");
+INSERT INTO species (fellowship_id, name) VALUES (5, "Maiar");
+INSERT INTO species (fellowship_id, name) VALUES (6, "Man");
+INSERT INTO species (fellowship_id, name) VALUES (7, "Man");
+INSERT INTO species (fellowship_id, name) VALUES (8, "Elf");
+INSERT INTO species (fellowship_id, name) VALUES (9, "Dwarf");
+
+CREATE TABLE weapon (id INTEGER PRIMARY KEY, 
+    fellowship_id INTEGER, 
+    name TEXT); 
+
+INSERT INTO weapon (fellowship_id, name) VALUES (1, "Dagger");
+INSERT INTO weapon (fellowship_id, name) VALUES (2, "Dagger");
+INSERT INTO weapon (fellowship_id, name) VALUES (3, "Dagger");
+INSERT INTO weapon (fellowship_id, name) VALUES (4, "Dagger");
+INSERT INTO weapon (fellowship_id, name) VALUES (5, "Staff");
+INSERT INTO weapon (fellowship_id, name) VALUES (6, "Sword");
+INSERT INTO weapon (fellowship_id, name) VALUES (7, "Sword");
+INSERT INTO weapon (fellowship_id, name) VALUES (8, "Bow");
+INSERT INTO weapon (fellowship_id, name) VALUES (9, "Axe");
+
+CREATE TABLE besties (id INTEGER PRIMARY KEY, 
+    besties1_id INTEGER, 
+    besties2_id INTEGER); 
+
+INSERT INTO besties (besties1_id, besties2_id) VALUES (1,2);
+INSERT INTO besties (besties1_id, besties2_id) VALUES (3,4);
+INSERT INTO besties (besties1_id, besties2_id) VALUES (8,9); 
