@@ -44,9 +44,6 @@ CREATE TABLE weapon (id INTEGER PRIMARY KEY,
     name TEXT); 
 
 INSERT INTO weapon (fellowship_id, name) VALUES (1, "Dagger");
-INSERT INTO weapon (fellowship_id, name) VALUES (2, "Dagger");
-INSERT INTO weapon (fellowship_id, name) VALUES (3, "Dagger");
-INSERT INTO weapon (fellowship_id, name) VALUES (4, "Dagger");
 INSERT INTO weapon (fellowship_id, name) VALUES (5, "Staff");
 INSERT INTO weapon (fellowship_id, name) VALUES (6, "Sword");
 INSERT INTO weapon (fellowship_id, name) VALUES (7, "Sword");
@@ -61,11 +58,23 @@ INSERT INTO besties (besties1_id, besties2_id) VALUES (1,2);
 INSERT INTO besties (besties1_id, besties2_id) VALUES (3,4);
 INSERT INTO besties (besties1_id, besties2_id) VALUES (8,9); 
 
+--To show which fellowship member belongs to which species-- 
+SELECT fellowship.first_name, species.name
+    FROM fellowship
+    JOIN species
+    ON fellowship.id = species.fellowship_id;
+
+--To show which fellowship member wields what weapon
+SELECT fellowship.first_name, weapon.name
+    FROM fellowship
+    OUTER LEFT JOIN weapon
+    ON fellowship.id = weapon.fellowship_id;
+    
 --To determine who in the fellowship are best friends -- 
 
-SELECT a.first_name, b.first_name 
+SELECT a.first_name AS name, b.first_name AS bestie
     FROM besties 
     JOIN fellowship a
     ON a.id = besties.besties1_id
     JOIN fellowship b
-    ON b.id = besties.besties2_id; 
+    ON b.id = besties.besties2_id;
