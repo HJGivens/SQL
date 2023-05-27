@@ -60,3 +60,12 @@ CREATE TABLE besties (id INTEGER PRIMARY KEY,
 INSERT INTO besties (besties1_id, besties2_id) VALUES (1,2);
 INSERT INTO besties (besties1_id, besties2_id) VALUES (3,4);
 INSERT INTO besties (besties1_id, besties2_id) VALUES (8,9); 
+
+--To determine who in the fellowship are best friends -- 
+
+SELECT a.first_name, b.first_name 
+    FROM besties 
+    JOIN fellowship a
+    ON a.id = besties.besties1_id
+    JOIN fellowship b
+    ON b.id = besties.besties2_id; 
