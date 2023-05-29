@@ -1,0 +1,82 @@
+--In this project, I'm querying a database that has to do with customer sales across multiple months. 
+
+
+--1. How many orders were placed in January? Answer: 9681
+
+SELECT COUNT (*) 
+FROM BIT_DB.JanSales
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'; 
+
+
+
+
+--2. How many of those orders were for an iPhone? Answer: 379
+
+SELECT COUNT (*)
+FROM BIT_DB.JanSales
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'
+    AND Product = 'iPhone'; 
+
+
+
+
+--3. Select the customer account numbers for all the orders that were placed in February. 
+
+SELECT distinct acctnum
+FROM BIT_DB.FebSales febsales
+JOIN BIT_DB.customers customers
+    ON febsales.orderID = customers.order_id
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID';
+    
+   
+
+
+--4. Which product was the cheapest one sold in January, and what was the price? Answer: AAA Batteries (4-Pack) 2.99
+
+SELECT Product, MIN (price)
+FROM BIT_DB.JanSales;
+
+--Alt answer: SELECT distinct product, MIN(price) FROM BIT_DB.JanSales Jan GROUP BY product, price ORDER BY price ASC LIMIT 1;
+ 
+
+
+
+--5.What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products) 
+
+SELECT Product, SUM (quantity)*price AS revenue
+FROM BIT_DB.JanSales
+GROUP BY product; 
+
+
+
+
+--6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+--Answer: AA Batteries (4-pack).
+--Answer: 2
+--Answer: 7.68 
+
+SELECT Product, Quantity, price, location
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101';
+
+SELECT Product, SUM (Quantity)*price AS revenue, location
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101';
+
+
+--7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers? 
+--Answer: 278 accounts.
+--Aswer: 13.82 
+
+SELECT COUNT (distinct acctnum), 
+        AVG (quantity*price) AS avg_spent
+FROM BIT_DB.FebSales febsales
+LEFT JOIN BIT_DB.customers customers
+    ON febsales.orderID = customers.order_id
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'
+    AND quantity > '2'; 
+    
