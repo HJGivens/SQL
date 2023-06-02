@@ -108,3 +108,78 @@ SELECT distinct Product, SUM(quantity)
 FROM BIT_DB.FebSales
 WHERE location like '%Los Angeles%'
 GROUP BY Product;
+
+
+-----------------------------------------------------
+
+--1. Which locations in New York received at least 3 orders in January, and how many orders did they receive? 
+
+SELECT distinct location, sum (quantity) orders 
+FROM BIT_DB.JanSales
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'
+    AND location like '%New York%'    
+GROUP BY location
+HAVING orders >= 3;
+
+--correct answer: 
+
+SELECT location, COUNT (orderID)
+FROM BIT_DB.JanSales 
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'
+    AND location like '%NY%'
+GROUP BY location
+HAVING COUNT (orderID) > 2; 
+
+--2. How many of each type of headphone were sold in February? 
+
+SELECT product, SUM (Quantity) 
+FROM BIT_DB.FebSales
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'
+    AND Product like '%Headphones%'
+GROUP BY Product;
+
+--3. What was the average amount spent per account in February? 
+
+--attempt 1
+SELECT  acctnum, AVG (Quantity*price) AS AvgSpnt
+FROM BIT_DB.FebSales feb
+LEFT JOIN BIT_DB.customers cust
+ON feb.orderID = cust.order_id
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID'
+GROUP BY acctnum;
+
+--attempt 2
+
+SELECT SUM (Quantity*price)/COUNT (acctnum) AS avg_spnt
+FROM BIT_DB.FebSales feb
+LEFT JOIN BIT_DB.customers cust
+ON feb.orderID = cust.order_id
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID';
+
+--4. What was the average quantity of products purchased per account in February?
+
+SELECT SUM (Quantity)/COUNT (acctnum) AS avg_qnty
+FROM BIT_DB.FebSales feb
+LEFT JOIN BIT_DB.customers cust
+ON feb.orderID = cust.order_id
+WHERE length (orderID) = 6
+    AND orderID <> 'Order ID';
+    
+--5. Which product brought in the most revenue in January and how much revenue did it bring in total? 
+
+SELECT *
+FROM BIT_DB.JanSales;
+
+SELECT 
+    distinct product, 
+    SUM (Quantity*price) AS revenue
+FROM BIT_DB.JanSales
+GROUP BY product
+ORDER BY SUM (Quantity*price) DESC
+LIMIT 1; 
+
