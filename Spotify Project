@@ -1,0 +1,77 @@
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+SELECT * FROM BIT_DB.Spotifydata;
+
+--Questions: 
+--What is the average tempo of the top 50 songs on spotify? 
+
+SELECT AVG (tempo) 
+FROM BIT_DB.Spotifydata;
+
+--How many tracks in the top 10 have a tempo greater than 120?
+
+SELECT COUNT (track_name) 
+FROM BIT_DB.Spotifydata
+WHERE tempo > 120; 
+
+--What is the name of the most popular track on spotify? 
+
+SELECT track_name, popularity
+FROM BIT_DB.Spotifydata
+ORDER BY popularity DESC
+LIMIT 1; 
+
+--what is the most danceable track whose tempo is greater than 160? 
+
+SELECT track_name
+FROM BIT_DB.Spotifydata
+WHERE tempo > 159
+ORDER BY danceability DESC
+LIMIT 1;
+
+--Who is the artist with the most popular track with the lowest energy? 
+
+SELECT artist_name, min (energy) 
+FROM BIT_DB.Spotifydata
+ORDER BY popularity DESC;
+
+--What is the popularity of the loudest track? What is it's name, and how loud is it? 
+
+SELECT track_name, popularity, loudness
+FROM BIT_DB.Spotifydata
+ORDER BY loudness DESC
+LIMIT 1;
+
+--What is the name of the loudest song with the most acousticness? 
+
+SELECT track_name, MAX (acousticness), MAX (loudness)
+FROM BIT_DB.Spotifydata; 
+
+--What is the average duration in minutes of the top 50 spotify songs? 
+
+SELECT AVG (duration_ms)/60000 AS duration_mins
+FROM BIT_DB.Spotifydata; 
+
+--How many of the top 50 spotify tracks have the word "love" in their title? 
+
+SELECT COUNT (track_name)
+FROM BIT_DB.Spotifydata
+WHERE track_name like '%love%'; 
